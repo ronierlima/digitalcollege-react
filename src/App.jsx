@@ -1,8 +1,13 @@
-const saudacao = 'Bom dia'
+import React from "react";
 
 function App() {
-
-  return <h1>{saudacao}</h1>
+  return (
+    <>
+      <p>Bom dia</p>
+      <h1>estudante</h1>
+      <p>Elany</p>
+    </>
+  );
 }
 
 export default App;
