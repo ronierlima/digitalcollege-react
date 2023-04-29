@@ -12,7 +12,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "serve": "serve build -p 80"
-
   },
   "eslintConfig": {
     "extends": [
