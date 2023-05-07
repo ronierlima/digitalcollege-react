@@ -1,12 +1,14 @@
-export function Button(props) {
+export function Button({ disabled, tipo, children }) {
 
   return (
     <button
-      disabled={props.disabled}
-      className={`btn ${props.disabled ? "" : props.tipo}`}
+      disabled={disabled}
+      className={`btn ${disabled ? "" : tipo}`}
     >
-      {props.children}
+      {children}
     </button>
   );
 }
+
+<Button disabled={true} tipo="primario"></Button>
 

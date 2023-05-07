@@ -1,41 +1,64 @@
-// import { Button } from "./Button";
-import Table from "./Table";
-
+import { useEffect, useState } from "react";
+import Table from "./components/Table";
 import "./global.css";
 
-function App() {
-  const data = [
-    {
-      id: 1,
-      nome: "Ronier da Silva Lima",
-      usuario: "ronier.lima",
-      email: "ronier.lima@email",
-    },
-    {
-      id: 2,
-      nome: "Ronier da Silva Lima",
-      usuario: "ronier.lima",
-      email: "ronier.lima@email",
-    },
-    {
-      id: 3,
-      nome: "Ronier da Silva Lima",
-      usuario: "ronier.lima",
-      email: "ronier.lima@email",
-    },
-  ];
+import axios from "axios";
 
+const ESTADO_DEFAULT = "CE";
+
+function App() {
+  const [estados, setEstados] = useState([]);
+  const [cidades, setCidades] = useState([]);
+
+  const [uf, setUf] = useState(ESTADO_DEFAULT);
+
+  useEffect(() => {
+    buscarEstados();
+  }, []);
+
+  useEffect(() => {
+    buscarCidades(uf);
+  }, [uf]);
+
+  async function buscarEstados() {
+    try {
+      const response = await axios.get(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados`
+      );
+
+      setEstados(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar estados:", error);
+      setEstados([]);
+    }
+  }
+
+  async function buscarCidades(estadoUF = ESTADO_DEFAULT) {
+    try {
+      const response = await axios.get(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoUF}/municipios`
+      );
+
+      setCidades(response.data);
+    } catch (error) {
+      console.error(`Erro ao buscar cidades do estado ${estadoUF}:`, error);
+      setCidades([]);
+    }
+  }
 
   return (
-    <div id="app">
+    <div>
+      <label htmlFor="estado">Estado:</label>
 
-      {/* <Button tipo="primary">Primary</Button>
-      <Button disabled tipo="danger">
-        Danger
-      </Button>
-      <Button disabled>Disabled</Button> */}
+      <select name="estado" id="estado" value={uf}>
+        {estados.map((estado) => (
+          <option key={estado.sigla} value={estado.sigla}>
+            {`${estado.nome} - ${estado.sigla}`}
+          </option>
+        ))}
+      </select>
 
-      <Table data={data} />
+      <Table dados={cidades} />
     </div>
   );
 }
