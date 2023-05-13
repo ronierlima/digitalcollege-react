@@ -6,10 +6,7 @@ function App() {
   return (
     <>
       <Header />
-
       <Routes />
-
-      <footer>sadasdasd</footer>
     </>
   );
 }
