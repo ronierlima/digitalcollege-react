@@ -3,8 +3,6 @@ import { useState } from "react";
 
 function Login() {
 
-  const [usuarioLogado, setUsuarioLogado] = useState(null);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,20 +13,15 @@ function Login() {
     const dados = { email, password };
 
     const response = await axios.post(
-      "https://digitalcollege-auth.onrender.com/auth",
+      "https://usuarios.ronierlima.dev/auth",
       dados
     );
 
-    console.log(response.data);
-    setUsuarioLogado(response.data.user)
-    
+
   }
 
   return (
     <div>
-
-      {usuarioLogado?.name}
-
 
       <h1>Faça o Login</h1>
 
@@ -40,6 +33,7 @@ function Login() {
           name="username"
           onChange={(evento) => setEmail(evento.target.value)}
         />
+        
         <label htmlFor="password">Senha:</label>
         <input
           type="password"
