@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../components/Table";
+import { IBGEAPI } from "../services/IBGEApi";
 
-import axios from "axios";
 
 const ESTADO_DEFAULT = "CE";
 
@@ -23,8 +23,8 @@ function ListCities() {
   async function buscarEstados() {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados`
+      const response = await IBGEAPI.get(
+        `/localidades/estados`
       );
 
       setEstados(response.data);
@@ -39,9 +39,7 @@ function ListCities() {
   async function buscarCidades(estadoUF = ESTADO_DEFAULT) {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoUF}/municipios`
-      );
+      const response = await IBGEAPI.get(`/localidades/estados/${estadoUF}/municipios`);
 
       setCidades(response.data);
     } catch (error) {
