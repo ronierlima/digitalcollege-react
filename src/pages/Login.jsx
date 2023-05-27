@@ -14,7 +14,7 @@ function Login() {
     evento.preventDefault();
 
     const dados = { email, password };
-
+    try{
     const response = await axios.post(
       "https://usuarios.ronierlima.dev/auth",
       dados
@@ -25,6 +25,9 @@ function Login() {
     setUser(response.data.user)
     
     window.location.href = '/'
+    } catch (error){
+      alert(error.response.data.error)
+    }
   }
 
   return (
