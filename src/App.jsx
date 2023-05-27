@@ -9,16 +9,16 @@ import { isLogado } from "./auth";
 function App() {
   return (
     <>
-      <Header></Header>
+      {isLogado && <Header></Header>}
 
       <Routes>
-        {!isLogado && <Route path="login" element={<Login />}></Route>}
-        
-        {isLogado && (
+        {isLogado ? (
           <>
             <Route path="/" element={<ListCities></ListCities>}></Route>
             <Route path="*" element={<NotFound />}></Route>
           </>
+        ) : (
+          <Route path="*" element={<Login />}></Route>
         )}
       </Routes>
     </>

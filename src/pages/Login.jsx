@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { isLogado } from "../auth";
 
 function Login() {
 
- 
- 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,9 +20,11 @@ function Login() {
       dados
     );
 
+    localStorage.setItem('logado', true)
+
     setUser(response.data.user)
     
-    window.location.href = 'home'
+    window.location.href = '/'
   }
 
   return (
