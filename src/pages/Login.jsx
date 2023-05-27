@@ -1,30 +1,31 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { isLogado } from "../auth";
+
+import { useState } from "react";
+import { API } from "../services/Api";
 
 function Login() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
- 
   async function autenticar(evento) {
-    evento.preventDefault();
+    try {
+      evento.preventDefault();
 
-    const dados = { email, password };
+      const dados = { email, password };
 
-    const response = await axios.post(
-      "https://usuarios.ronierlima.dev/auth",
-      dados
-    );
+      const response = await API.post("/auth",
+        dados
+      );
 
-    localStorage.setItem('logado', true)
+      localStorage.setItem("logado", true);
 
-    setUser(response.data.user)
-    
-    window.location.href = '/'
+      setUser(response.data.user);
+
+      window.location.href = "/";
+    } catch (error) {
+      alert(error.response.data.error)
+    }
   }
 
   return (
