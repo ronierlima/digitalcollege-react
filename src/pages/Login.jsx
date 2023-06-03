@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { isLogado } from "../auth";
+import { API } from "./pages/Api";
 
 function Login() {
 
@@ -16,7 +17,7 @@ function Login() {
     const dados = { email, password };
     try{
     const response = await axios.post(
-      "https://usuarios.ronierlima.dev/auth",
+      "/auth",
       dados
     );
 

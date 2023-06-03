@@ -6,6 +6,7 @@ import ListCities from "./pages/ListCities";
 import Login from "./pages/Login";
 import { isLogado } from "./auth";
 
+
 function App() {
   return (
     <>
